@@ -1,0 +1,18 @@
+{
+  "name": "areia-lab/env-craft",
+  "description": "Simple UI + Artisan manager for .env with backup/restore",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "AreiaLab\\EnvCraft\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AreiaLab\\EnvCraft\\EnvCraftServiceProvider"
+      ]
+    }
+  }
+}
