@@ -86,7 +86,12 @@
                                             Copy
                                         </button>
                                     </label>
-                                    <input type="text" name="env[{{ $key }}]" value="{{ $value }}"
+                                    @php
+                                        // Remove quotes if present
+                                        $cleanValue = trim($value, '"');
+                                    @endphp
+
+                                    <input type="text" name="env[{{ $key }}]" value="{{ $cleanValue ?: '' }}"
                                         class="input-field">
                                 </div>
                             @endforeach

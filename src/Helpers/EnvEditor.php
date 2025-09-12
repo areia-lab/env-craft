@@ -10,7 +10,7 @@ class EnvEditor
     }
     public static function backupDir(): string
     {
-        return storage_path('app/' . config('env-manager.backup_path', 'env-manager-backups'));
+        return storage_path('app/' . config('env-manager.backup.dir_path', 'backup/env-backups'));
     }
 
     public static function readAll(): array
@@ -34,7 +34,11 @@ class EnvEditor
         if (!file_exists($path)) return ['.env not found'];
         $content = file_get_contents($path);
         $errors = [];
-        static::backup();
+
+        if (config('env-manager.backup.auto_save_when_update')) {
+            static::backup();
+        }
+
         foreach ($pairs as $k => $v) {
             if (!preg_match('/^[A-Z0-9_]+$/', $k)) {
                 $errors[] = "Invalid key: $k";
