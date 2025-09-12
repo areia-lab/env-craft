@@ -1,18 +1,31 @@
 {
-  "name": "areia-lab/env-craft",
-  "description": "Simple UI + Artisan manager for .env with backup/restore",
-  "type": "library",
-  "license": "MIT",
-  "autoload": {
-    "psr-4": {
-      "AreiaLab\\EnvCraft\\": "src/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "AreiaLab\\EnvCraft\\EnvCraftServiceProvider"
-      ]
-    }
-  }
+    "name": "areia-lab/env-craft",
+    "description": "Simple UI + Artisan manager for .env with backup/restore",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Areia Lab",
+            "email": "support@areiatech.com",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "illuminate/support": "^9.0|^10.0|^11.0|^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AreiaLab\\EnvCraft\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AreiaLab\\EnvCraft\\EnvCraftServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
