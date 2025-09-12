@@ -92,7 +92,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <!-- Brand -->
-                <a href="{{ url('/') }}"
+                <a href="{{ route('env-manager.index') }}"
                     class="flex items-center text-xl font-bold text-primary-600 dark:text-primary-400">
                     <span
                         class="bg-primary-600 dark:bg-primary-500 text-white px-2 py-1 rounded-lg mr-2">{{ config('env-manager.panel.title_prefix', 'Env') }}</span>
@@ -101,8 +101,8 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="{{ url('/') }}"
-                        class="hover:text-primary-600 dark:hover:text-primary-400 transition">Home</a>
+                    <a href="{{ url(config('env-manager.panel.call_back_url', '/')) }}"
+                        class="hover:text-primary-600 dark:hover:text-primary-400 transition">{{ config('env-manager.panel.call_back_title', 'Home') }}</a>
                     <a href="{{ route('env-manager.index') }}"
                         class="hover:text-primary-600 dark:hover:text-primary-400 transition">Env Manager</a>
                     @auth
@@ -219,36 +219,6 @@
                 icon.classList.add('rotate-0');
             }
         }
-
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                // Show a temporary notification that the value was copied
-                const notification = document.createElement('div');
-                notification.innerText = 'Copied to clipboard!';
-                notification.className =
-                    'fixed bottom-4 right-4 bg-primary-600 text-white px-4 py-2 rounded-lg shadow-lg animate-fade-in z-50';
-                document.body.appendChild(notification);
-
-                setTimeout(() => {
-                    notification.classList.remove('animate-fade-in');
-                    notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 300);
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
-
-        // Initialize all sections as expanded by default
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('[id^="section-"]');
-            sections.forEach(section => {
-                section.classList.remove('hidden');
-            });
-        });
     </script>
 </body>
 

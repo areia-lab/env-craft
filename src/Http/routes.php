@@ -5,7 +5,7 @@ use AreiaLab\EnvCraft\Http\Controllers\EnvController;
 
 Route::group([
     'middleware' => config('env-manager.middleware', ['web']),
-    'prefix' => 'env-manager',
+    'prefix' => config('env-manager.panel.url_prefix', 'admin/env-manager'),
     'as' => 'env-manager.'
 ], function () {
     Route::get('/', [EnvController::class, 'index'])->name('index');
