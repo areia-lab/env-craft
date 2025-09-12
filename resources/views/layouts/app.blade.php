@@ -219,36 +219,6 @@
                 icon.classList.add('rotate-0');
             }
         }
-
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                // Show a temporary notification that the value was copied
-                const notification = document.createElement('div');
-                notification.innerText = 'Copied to clipboard!';
-                notification.className =
-                    'fixed bottom-4 right-4 bg-primary-600 text-white px-4 py-2 rounded-lg shadow-lg animate-fade-in z-50';
-                document.body.appendChild(notification);
-
-                setTimeout(() => {
-                    notification.classList.remove('animate-fade-in');
-                    notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 300);
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
-
-        // Initialize all sections as expanded by default
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('[id^="section-"]');
-            sections.forEach(section => {
-                section.classList.remove('hidden');
-            });
-        });
     </script>
 </body>
 
