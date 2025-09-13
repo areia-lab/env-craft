@@ -28,9 +28,9 @@ php artisan vendor:publish --tags="craft-views"
 
 Visit `/admin/env-manager` in your Laravel application to access the EnvCraft UI.
 
-![Dark Dashboard](images/dashboard-dark.png)
+![Dark Dashboard](public/images/dashboard-dark.png)
 
-![Light Dashboard](images/dashboard-light.png)
+![Light Dashboard](public/images/dashboard-light.png)
 
 ### Artisan Commands
 
