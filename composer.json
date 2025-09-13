@@ -3,6 +3,20 @@
     "description": "Simple UI + Artisan manager for .env with backup/restore",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel",
+        "env",
+        ".env",
+        "environment",
+        "configuration",
+        "admin",
+        "ui",
+        "backup",
+        "restore",
+        "artisan",
+        "env-manager",
+        "env-craft"
+    ],
     "authors": [
         {
             "name": "Areia Lab",
