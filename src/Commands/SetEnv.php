@@ -7,19 +7,40 @@ use Illuminate\Console\Command;
 
 class SetEnv extends Command
 {
-    protected $signature = 'env:set {key} {value}';
-    protected $description = 'Set a single .env key';
+    protected $signature = 'env:set 
+                            {--key= : The .env key to set} 
+                            {--value= : The value to assign} 
+                            {--s|show : Display the new value after setting}';
+    protected $description = 'Set a single .env key (interactive if no key/value provided)';
 
-    public function handle()
+    public function handle(): int
     {
-        $k = $this->argument('key');
-        $v = $this->argument('value');
-        $errors = Env::setMultiple([$k => $v]);
-        if ($errors) {
-            foreach ($errors as $e) $this->error($e);
+        // Use option values or ask interactively
+        $key = $this->option('key') ?: $this->ask('Enter the .env key you want to set');
+        if (empty($key)) {
+            $this->error('❌ Key cannot be empty.');
             return 1;
         }
-        $this->info("Set $k=$v");
+
+        $value = $this->option('value') ?: $this->ask("Enter the value for $key");
+
+        $errors = Env::setMultiple([$key => $value]);
+
+        if ($errors) {
+            foreach ($errors as $e) {
+                $this->error("❌ $e");
+            }
+            return 1;
+        }
+
+        $this->info("✅ Successfully set <fg=yellow>$key</> = <fg=cyan>$value</>");
+
+        if ($this->option('show')) {
+            $all = Env::readAll();
+            $this->line('');
+            $this->info("Current value of <fg=yellow>$key</>: <fg=cyan>{$all[$key]}</>");
+        }
+
         return 0;
     }
 }

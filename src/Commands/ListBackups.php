@@ -7,15 +7,38 @@ use Illuminate\Console\Command;
 
 class ListBackups extends Command
 {
-    protected $signature = 'env:list-backups';
+    protected $signature = 'env:backup-list';
     protected $description = 'List available .env backups';
 
-    public function handle()
+    public function handle(): int
     {
         $files = Env::listBackups();
-        foreach ($files as $f) {
-            $this->line($f . ' (' . date('Y-m-d H:i:s', filemtime($f)) . ')');
+
+        if (empty($files)) {
+            $this->warn('⚠️  No backups found.');
+            return 0;
         }
+
+        $this->info('Available .env backups:');
+        $this->line('');
+
+        foreach ($files as $index => $file) {
+            $timestamp = date('Y-m-d H:i:s', filemtime($file));
+            $label = ($index === 0) ? '<fg=green;options=bold>Latest</>' : '';
+            $this->line(
+                sprintf(
+                    '%d. %s %s (%s)',
+                    $index + 1,
+                    $file,
+                    $label,
+                    $timestamp
+                )
+            );
+        }
+
+        $this->line('');
+        $this->info("Total backups: " . count($files));
+
         return 0;
     }
 }
