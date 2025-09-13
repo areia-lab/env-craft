@@ -9,6 +9,9 @@
         <!-- Alerts -->
         @include('env-manager::alert')
 
+        <!-- Restore Section -->
+        @include('env-manager::restore')
+
         <!-- Env Groups -->
         <form method="POST" action="{{ route('env-manager.save') }}" class="space-y-6">
             @csrf
@@ -76,9 +79,6 @@
                 </button>
             </div>
         </form>
-
-        <!-- Restore Section -->
-        @include('env-manager::restore')
 
     </div>
 @endsection
