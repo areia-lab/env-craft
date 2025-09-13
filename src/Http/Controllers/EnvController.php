@@ -2,34 +2,36 @@
 
 namespace AreiaLab\EnvCraft\Http\Controllers;
 
+use AreiaLab\EnvCraft\Traits\HandlesEnvGrouping;
+use AreiaLab\EnvCraft\Helpers\EnvEditor;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use AreiaLab\EnvCraft\Helpers\EnvEditor;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class EnvController extends Controller
 {
+    use HandlesEnvGrouping;
+
     /**
-     * Display the grouped .env variables with backups
+     * Show the grouped .env variables and available backups.
      */
-    public function index()
+    public function index(): View
     {
-        $env = EnvEditor::readAll();
-        $backups = EnvEditor::listBackups();
-
-        // Group by prefix (2 or more keys with the same prefix)
-        $groups = $this->groupByPrefix($env);
-
-        return view('env-manager::index', compact('groups', 'backups'));
+        return view('env-manager::index', [
+            'groups'  => $this->groupByPrefix(EnvEditor::readAll()),
+            'backups' => EnvEditor::listBackups(),
+        ]);
     }
 
     /**
-     * Save edited .env variables
+     * Save updated .env variables.
      */
-    public function save(Request $request)
+    public function save(Request $request): RedirectResponse
     {
         $pairs = $request->input('env', []);
 
-        // Restrict editable keys if configured
+        // Apply restrictions if editable keys are configured
         $allowed = config('env.editable_keys', []);
         if (!empty($allowed)) {
             $pairs = array_intersect_key($pairs, array_flip($allowed));
@@ -37,69 +39,38 @@ class EnvController extends Controller
 
         $errors = EnvEditor::setMultiple($pairs);
 
-        if ($errors) {
-            return redirect()->back()->with('error', implode('; ', $errors));
+        if (!empty($errors)) {
+            return back()->with('error', implode('; ', $errors));
         }
 
-        return redirect()->back()->with('success', 'Saved .env values successfully');
+        return back()->with('success', 'Saved .env values successfully.');
     }
 
     /**
-     * Create a backup of the .env file
+     * Create a backup of the .env file.
      */
-    public function backup(Request $request)
+    public function backup(): RedirectResponse
     {
         $path = EnvEditor::backup();
-        return redirect()->back()->with('success', "Backup created: $path");
+
+        return back()->with('success', "Backup created: {$path}");
     }
 
     /**
-     * Restore .env file from a backup
+     * Restore the .env file from a backup.
      */
-    public function restore(Request $request)
+    public function restore(Request $request): RedirectResponse
     {
         $file = $request->input('backup');
 
-        if (!$file) {
-            return redirect()->back()->with('error', 'No backup selected');
+        if (empty($file)) {
+            return back()->with('error', 'No backup selected.');
         }
 
-        $ok = EnvEditor::restore($file);
-
-        if (!$ok) {
-            return redirect()->back()->with('error', 'Restore failed');
+        if (!EnvEditor::restore($file)) {
+            return back()->with('error', 'Restore failed.');
         }
 
-        return redirect()->back()->with('success', 'Restored .env from backup');
-    }
-
-    /**
-     * Group env keys by prefix (2 or more keys with same prefix)
-     */
-    private function groupByPrefix(array $env): array
-    {
-        $groups = [];
-        $prefixCount = [];
-
-        // Count how many times each prefix occurs
-        foreach ($env as $key => $value) {
-            $parts = explode('_', $key);
-            $prefix = $parts[0] ?? 'Other';
-            $prefixCount[$prefix] = ($prefixCount[$prefix] ?? 0) + 1;
-        }
-
-        // Assign keys to groups
-        foreach ($env as $key => $value) {
-            $parts = explode('_', $key);
-            $prefix = $parts[0] ?? 'Other';
-
-            if ($prefixCount[$prefix] >= 2) {
-                $groups[$prefix][$key] = $value;
-            } else {
-                $groups['Other'][$key] = $value;
-            }
-        }
-
-        return $groups;
+        return back()->with('success', 'Restored .env from backup.');
     }
 }

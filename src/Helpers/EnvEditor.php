@@ -73,7 +73,7 @@ class EnvEditor
         $ts = date('Ymd_His');
         $file = "$dir/.env_backup_$ts";
         copy(static::envPath(), $file);
-        $max = (int)config('env.max_backups', 50);
+        $max = (int)config('env.backup.max_limit', 50);
         if ($max > 0) {
             $files = glob($dir . "/.env_backup_*");
             usort($files, fn($a, $b) => filemtime($b) - filemtime($a));

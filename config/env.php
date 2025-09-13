@@ -22,8 +22,9 @@ return [
         'auto_save_when_update' => false, // Disable automatic backup on updates
 
         'dir_path' => 'backup/env-backups', // Directory path where backups will be stored
+
+        'max_limit' => 50,
     ],
 
     'backup_disk' => 'local',
-    'max_backups' => 50,
 ];
