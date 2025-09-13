@@ -2,8 +2,8 @@
 
 namespace AreiaLab\EnvCraft\Commands;
 
+use AreiaLab\EnvCraft\Facades\Env;
 use Illuminate\Console\Command;
-use AreiaLab\EnvCraft\Helpers\EnvEditor;
 
 class SetEnv extends Command
 {
@@ -14,7 +14,7 @@ class SetEnv extends Command
     {
         $k = $this->argument('key');
         $v = $this->argument('value');
-        $errors = EnvEditor::setMultiple([$k => $v]);
+        $errors = Env::setMultiple([$k => $v]);
         if ($errors) {
             foreach ($errors as $e) $this->error($e);
             return 1;

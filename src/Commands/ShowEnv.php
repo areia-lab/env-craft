@@ -2,8 +2,8 @@
 
 namespace AreiaLab\EnvCraft\Commands;
 
+use AreiaLab\EnvCraft\Facades\Env;
 use Illuminate\Console\Command;
-use AreiaLab\EnvCraft\Helpers\EnvEditor;
 
 class ShowEnv extends Command
 {
@@ -13,7 +13,7 @@ class ShowEnv extends Command
     public function handle()
     {
         $key = $this->argument('key');
-        $all = EnvEditor::readAll();
+        $all = Env::readAll();
         if ($key) {
             $this->line($all[$key] ?? '');
             return 0;

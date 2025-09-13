@@ -2,8 +2,8 @@
 
 namespace AreiaLab\EnvCraft\Commands;
 
+use AreiaLab\EnvCraft\Facades\Env;
 use Illuminate\Console\Command;
-use AreiaLab\EnvCraft\Helpers\EnvEditor;
 
 class BackupEnv extends Command
 {
@@ -12,7 +12,7 @@ class BackupEnv extends Command
 
     public function handle()
     {
-        $file = EnvEditor::backup();
+        $file = Env::backup();
         $this->info("Backup created: $file");
         return 0;
     }

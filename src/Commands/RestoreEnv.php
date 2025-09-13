@@ -2,8 +2,8 @@
 
 namespace AreiaLab\EnvCraft\Commands;
 
+use AreiaLab\EnvCraft\Facades\Env;
 use Illuminate\Console\Command;
-use AreiaLab\EnvCraft\Helpers\EnvEditor;
 
 class RestoreEnv extends Command
 {
@@ -17,7 +17,7 @@ class RestoreEnv extends Command
             $this->error('File not found');
             return 1;
         }
-        $ok = EnvEditor::restore($file);
+        $ok = Env::restore($file);
         if ($ok) $this->info('Restored');
         else $this->error('Restore failed');
         return $ok ? 0 : 1;

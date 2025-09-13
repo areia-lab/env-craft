@@ -2,8 +2,8 @@
 
 namespace AreiaLab\EnvCraft\Commands;
 
+use AreiaLab\EnvCraft\Facades\Env;
 use Illuminate\Console\Command;
-use AreiaLab\EnvCraft\Helpers\EnvEditor;
 
 class ListBackups extends Command
 {
@@ -12,7 +12,7 @@ class ListBackups extends Command
 
     public function handle()
     {
-        $files = EnvEditor::listBackups();
+        $files = Env::listBackups();
         foreach ($files as $f) {
             $this->line($f . ' (' . date('Y-m-d H:i:s', filemtime($f)) . ')');
         }
