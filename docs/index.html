@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnvCraft Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --code-bg: #1e1e2f;
+            --card-bg: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            background-color: var(--light);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: var(--gradient);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-container {
+            max-width: 1200px;
+        }
+
+        .sidebar {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .sidebar .nav-link {
+            color: var(--dark);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border: none;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .section-body {
+            padding: 1.5rem;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: #f8f8f2;
+            padding: 1.25rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            position: relative;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .command-badge {
+            background-color: var(--secondary);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .accordion-button {
+            font-weight: 600;
+            padding: 1rem 1.25rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .accordion-body {
+            padding: 1rem 1.25rem;
+        }
+
+        h6 {
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .img-placeholder {
+            background: linear-gradient(145deg, #e2e8f0, #cbd5e1);
+            border-radius: 8px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid #e2e8f0;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-gear-fill me-2"></i>EnvCraft
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#installation">Installation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#web-ui">Web UI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#artisan">Commands</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container doc-container py-5">
+        <div class="row">
+            <!-- Sidebar / Table of Contents -->
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <h5 class="mb-3 fw-bold">Documentation</h5>
+                    <nav class="nav flex-column">
+                        <a class="nav-link active" href="#installation">Installation</a>
+                        <a class="nav-link" href="#publish">Publish Assets</a>
+                        <a class="nav-link" href="#configuration">Configuration</a>
+                        <a class="nav-link" href="#web-ui">Web UI</a>
+                        <a class="nav-link" href="#artisan">Artisan Commands</a>
+                        <a class="nav-link" href="#compatibility">Compatibility</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <div class="mb-4">
+                    <h1 class="fw-bold mb-2">EnvCraft Documentation</h1>
+                    <p class="lead text-muted">Effortlessly manage your Laravel <code>.env</code> with an intuitive UI
+                        and powerful Artisan commands.</p>
+                </div>
+
+                <!-- Installation -->
+                <section id="installation" class="section-card">
+                    <div class="section-header">Installation</div>
+                    <div class="section-body">
+                        <p>Install EnvCraft via Composer:</p>
+                        <div class="code-block">
+                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                            <pre><code>composer require areia-lab/env-craft</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Publish Vendor -->
+                <section id="publish" class="section-card">
+                    <div class="section-header">Publish Assets</div>
+                    <div class="section-body">
+                        <h6>Publish Configuration</h6>
+                        <div class="code-block">
+                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                            <pre><code>php artisan vendor:publish --tags="craft-config"</code></pre>
+                        </div>
+
+                        <h6>Publish Views</h6>
+                        <div class="code-block">
+                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                            <pre><code>php artisan vendor:publish --tags="craft-views"</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Configuration -->
+                <section id="configuration" class="section-card">
+                    <div class="section-header">Configuration</div>
+                    <div class="section-body">
+                        <p>Customize EnvCraft by modifying the config file:</p>
+                        <div class="code-block">
+                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                            <pre><code>return [
+    'panel' => [
+        'url_prefix' => 'admin/env-manager',
+        'call_back_title' => 'Home',
+        'call_back_url' => '/',
+        'title_prefix' => 'Env',
+        'title_suffix' => 'Craft',
+    ],
+    'middleware' => ['web'],
+    'editable_keys' => [],
+    'backup' => [
+        'auto_save_when_update' => false,
+        'disk' => 'local',
+        'dir_path' => 'backup/env-backups',
+        'max_limit' => 50,
+    ],
+];</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Web UI -->
+                <section id="web-ui" class="section-card">
+                    <div class="section-header">Web UI</div>
+                    <div class="section-body">
+                        <p>Access the EnvCraft interface at <code>/admin/env-manager</code> in your application.</p>
+                        <div class="row g-3 mt-3">
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center p-0">
+                                        <img src="../public/images/dashboard-dark.png" class="img-fluid rounded-top"
+                                            alt="EnvCraft Dark Mode Dashboard">
+                                        <div class="py-2 bg-light rounded-bottom">
+                                            <small class="text-muted">Dark Mode Preview</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center p-0">
+                                        <img src="../public/images/dashboard-light.png" class="img-fluid rounded-top"
+                                            alt="EnvCraft Light Mode Dashboard">
+                                        <div class="py-2 bg-light rounded-bottom">
+                                            <small class="text-muted">Light Mode Preview</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="text-muted small"><i class="bi bi-info-circle me-1"></i>Note: The actual URL path
+                                may vary based on your configuration settings.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Artisan Commands -->
+                <section id="artisan" class="section-card">
+                    <div class="section-header">Artisan Commands</div>
+                    <div class="section-body">
+                        <div class="accordion" id="commandsAccordion">
+
+                            <!-- Backup -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingBackup">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseBackup" aria-expanded="false"
+                                        aria-controls="collapseBackup">
+                                        <i class="bi bi-cloud-arrow-up me-2"></i>Backup
+                                    </button>
+                                </h2>
+                                <div id="collapseBackup" class="accordion-collapse collapse"
+                                    aria-labelledby="headingBackup" data-bs-parent="#commandsAccordion">
+                                    <div class="accordion-body">
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:backup</code></pre>
+                                        </div>
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:backup -d|--details</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- List Backups -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingList">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseList" aria-expanded="false"
+                                        aria-controls="collapseList">
+                                        <i class="bi bi-list-check me-2"></i>List Backups
+                                    </button>
+                                </h2>
+                                <div id="collapseList" class="accordion-collapse collapse" aria-labelledby="headingList"
+                                    data-bs-parent="#commandsAccordion">
+                                    <div class="accordion-body">
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:backup-list</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Show Env -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingShow">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseShow" aria-expanded="false"
+                                        aria-controls="collapseShow">
+                                        <i class="bi bi-eye me-2"></i>Show .env Values
+                                    </button>
+                                </h2>
+                                <div id="collapseShow" class="accordion-collapse collapse" aria-labelledby="headingShow"
+                                    data-bs-parent="#commandsAccordion">
+                                    <div class="accordion-body">
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:show</code></pre>
+                                        </div>
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:show --key=APP_KEY</code></pre>
+                                        </div>
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:show -k APP_KEY</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Set Env -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSet">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseSet" aria-expanded="false" aria-controls="collapseSet">
+                                        <i class="bi bi-pencil-square me-2"></i>Set .env Values
+                                    </button>
+                                </h2>
+                                <div id="collapseSet" class="accordion-collapse collapse" aria-labelledby="headingSet"
+                                    data-bs-parent="#commandsAccordion">
+                                    <div class="accordion-body">
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:set</code></pre>
+                                        </div>
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:set --key="TEST_KEY" --value="Abc123"</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Restore -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingRestore">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseRestore" aria-expanded="false"
+                                        aria-controls="collapseRestore">
+                                        <i class="bi bi-arrow-counterclockwise me-2"></i>Restore Backups
+                                    </button>
+                                </h2>
+                                <div id="collapseRestore" class="accordion-collapse collapse"
+                                    aria-labelledby="headingRestore" data-bs-parent="#commandsAccordion">
+                                    <div class="accordion-body">
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:restore --show</code></pre>
+                                        </div>
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:restore /path/to/.env_backup</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Delete Backups -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingDelete">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseDelete" aria-expanded="false"
+                                        aria-controls="collapseDelete">
+                                        <i class="bi bi-trash me-2"></i>Delete Backups
+                                    </button>
+                                </h2>
+                                <div id="collapseDelete" class="accordion-collapse collapse"
+                                    aria-labelledby="headingDelete" data-bs-parent="#commandsAccordion">
+                                    <div class="accordion-body">
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:backup-delete --file="/path/to/backup"</code></pre>
+                                        </div>
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:backup-delete --all</code></pre>
+                                        </div>
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:backup-delete --pre=10</code></pre>
+                                        </div>
+                                        <div class="code-block">
+                                            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+                                            <pre><code>php artisan env:backup-delete</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Compatibility -->
+                <section id="compatibility" class="section-card">
+                    <div class="section-header">Compatibility</div>
+                    <div class="section-body">
+                        <p><i class="bi bi-check-circle-fill text-success me-2"></i>Fully compatible with Laravel 9–12.
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center">
+        <div class="container">
+            <p class="text-muted mb-0">&copy; 2025 AreiaLab. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            // Visual feedback
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 1500);
+        }
+
+        // Update active sidebar link on scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.section-card');
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+
+            window.addEventListener('scroll', function () {
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

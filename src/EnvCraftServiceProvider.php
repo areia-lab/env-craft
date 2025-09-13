@@ -17,6 +17,11 @@ class EnvCraftServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Bind EnvEditor to the container
+        $this->app->singleton('env-editor', function () {
+            return new EnvEditor();
+        });
+
         // Views & Routes
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'env-manager');
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
@@ -29,6 +34,7 @@ class EnvCraftServiceProvider extends ServiceProvider
                 Commands\BackupEnv::class,
                 Commands\RestoreEnv::class,
                 Commands\ListBackups::class,
+                Commands\DeleteBackup::class,
             ]);
 
             // Publish config

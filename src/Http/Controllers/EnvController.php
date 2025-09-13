@@ -2,8 +2,8 @@
 
 namespace AreiaLab\EnvCraft\Http\Controllers;
 
+use AreiaLab\EnvCraft\Facades\Env;
 use AreiaLab\EnvCraft\Traits\HandlesEnvGrouping;
-use AreiaLab\EnvCraft\Helpers\EnvEditor;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
@@ -19,8 +19,8 @@ class EnvController extends Controller
     public function index(): View
     {
         return view('env-manager::index', [
-            'groups'  => $this->groupByPrefix(EnvEditor::readAll()),
-            'backups' => EnvEditor::listBackups(),
+            'groups'  => $this->groupByPrefix(Env::readAll()),
+            'backups' => Env::listBackups(),
         ]);
     }
 
@@ -37,7 +37,7 @@ class EnvController extends Controller
             $pairs = array_intersect_key($pairs, array_flip($allowed));
         }
 
-        $errors = EnvEditor::setMultiple($pairs);
+        $errors = Env::setMultiple($pairs);
 
         if (!empty($errors)) {
             return back()->with('error', implode('; ', $errors));
@@ -51,7 +51,7 @@ class EnvController extends Controller
      */
     public function backup(): RedirectResponse
     {
-        $path = EnvEditor::backup();
+        $path = Env::backup();
 
         return back()->with('success', "Backup created: {$path}");
     }
@@ -67,7 +67,7 @@ class EnvController extends Controller
             return back()->with('error', 'No backup selected.');
         }
 
-        if (!EnvEditor::restore($file)) {
+        if (!Env::restore($file)) {
             return back()->with('error', 'Restore failed.');
         }
 
