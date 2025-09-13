@@ -22,6 +22,28 @@ php artisan vendor:publish --tags="craft-config"
 php artisan vendor:publish --tags="craft-views"
 ```
 
+## Customize Configuration (config/env.php)
+
+```bash
+return [
+    'panel' => [
+        'url_prefix' => 'admin/env-manager',
+        'call_back_title' => 'Home',
+        'call_back_url' => '/',
+        'title_prefix' => 'Env',
+        'title_suffix' => 'Craft',
+    ],
+    'middleware' => ['web'],
+    'editable_keys' => [],
+    'backup' => [
+        'auto_save_when_update' => false,
+        'disk' => 'local',
+        'dir_path' => 'backup/env-backups',
+        'max_limit' => 50,
+    ],
+];
+```
+
 ## Usage
 
 ### Web UI
