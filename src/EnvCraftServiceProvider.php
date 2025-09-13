@@ -34,6 +34,7 @@ class EnvCraftServiceProvider extends ServiceProvider
                 Commands\BackupEnv::class,
                 Commands\RestoreEnv::class,
                 Commands\ListBackups::class,
+                Commands\DeleteBackup::class,
             ]);
 
             // Publish config
