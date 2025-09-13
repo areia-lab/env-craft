@@ -30,7 +30,7 @@ class EnvController extends Controller
         $pairs = $request->input('env', []);
 
         // Restrict editable keys if configured
-        $allowed = config('env-manager.editable_keys', []);
+        $allowed = config('env.editable_keys', []);
         if (!empty($allowed)) {
             $pairs = array_intersect_key($pairs, array_flip($allowed));
         }

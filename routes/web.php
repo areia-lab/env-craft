@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use AreiaLab\EnvCraft\Http\Controllers\EnvController;
 
 Route::group([
-    'middleware' => config('env-manager.middleware', ['web']),
-    'prefix' => config('env-manager.panel.url_prefix', 'admin/env-manager'),
+    'middleware' => config('env.middleware', ['web']),
+    'prefix' => config('env.panel.url_prefix', 'admin/env-manager'),
     'as' => 'env-manager.'
 ], function () {
     Route::get('/', [EnvController::class, 'index'])->name('index');

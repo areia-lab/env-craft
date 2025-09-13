@@ -10,7 +10,7 @@ class EnvEditor
     }
     public static function backupDir(): string
     {
-        return storage_path('app/' . config('env-manager.backup.dir_path', 'backup/env-backups'));
+        return storage_path('app/' . config('env.backup.dir_path', 'backup/env-backups'));
     }
 
     public static function readAll(): array
@@ -35,7 +35,7 @@ class EnvEditor
         $content = file_get_contents($path);
         $errors = [];
 
-        if (config('env-manager.backup.auto_save_when_update')) {
+        if (config('env.backup.auto_save_when_update')) {
             static::backup();
         }
 
@@ -73,7 +73,7 @@ class EnvEditor
         $ts = date('Ymd_His');
         $file = "$dir/.env_backup_$ts";
         copy(static::envPath(), $file);
-        $max = (int)config('env-manager.max_backups', 50);
+        $max = (int)config('env.max_backups', 50);
         if ($max > 0) {
             $files = glob($dir . "/.env_backup_*");
             usort($files, fn($a, $b) => filemtime($b) - filemtime($a));
