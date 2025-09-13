@@ -13,13 +13,13 @@ composer require areia-lab/env-craft
 ### Config
 
 ```bash
-php artisan vendor:publish --tags="craft-config"
+php artisan vendor:publish --tag="craft-env-config"
 ```
 
 ### Views
 
 ```bash
-php artisan vendor:publish --tags="craft-views"
+php artisan vendor:publish --tag="craft-env-views"
 ```
 
 ## Customize Configuration (config/env.php)

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2025-09-13
+
+### Bug Fix / Improvement
+
+- **Vendor Publishing Command Updated:** Fixed and updated the Artisan vendor publish command to ensure proper publishing of configuration and view files.
+  - Resolves issues where `php artisan vendor:publish` did not correctly publish files for some users.
+  - No breaking changes; fully compatible with v1.0.0.
+
 ## [1.0.0] - 2025-09-13
 
 ### Initial Release
