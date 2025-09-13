@@ -152,4 +152,10 @@ php artisan env:backup-delete
 
 ---
 
-This package is fully compatible with **Laravel 9–12** and ensures safe `.env` management with backup/restore mechanisms.
+<p>This package is fully compatible with **Laravel 9–12** and ensures safe `.env` management with backup/restore mechanisms.</p>
+
+---
+
+## 📜 License
+
+MIT © AreiaLab
