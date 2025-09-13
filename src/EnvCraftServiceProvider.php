@@ -6,18 +6,15 @@ use Illuminate\Support\ServiceProvider;
 
 class EnvCraftServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/env-manager.php', 'env-manager');
+    }
+
     public function boot()
     {
-        $this->publishes([
-            __DIR__ . '/config/env-manager.php' => config_path('env-manager.php'),
-        ], 'config');
-
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'env-manager');
-        $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/env-manager'),
-        ], 'views');
-
-        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -28,10 +25,13 @@ class EnvCraftServiceProvider extends ServiceProvider
                 Commands\ListBackups::class,
             ]);
         }
-    }
 
-    public function register()
-    {
-        $this->mergeConfigFrom(__DIR__ . '/config/env-manager.php', 'env-manager');
+        $this->publishes([
+            __DIR__ . '/../config/env-manager.php' => config_path('env-manager.php'),
+        ], 'craft-config');
+
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/areia/env-manager'),
+        ], 'craft-views');
     }
 }
